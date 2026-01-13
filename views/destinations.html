@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kerala Districts</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+ <body>
+  <div id="nav-container"></div>
+
+ 
+
+  
+
+ 
+<button onclick="history.back()" style="...">⬅ Back</button>
+
+<h1 class="page-title">Explore Kerala</h1>
+
+
+
+  <h1 class="page-title">JOURNEY ACROSS KERALA</h1>
+
+  <!-- HORIZONTAL SCROLL WRAPPER -->
+  <div class="scroll-wrapper">
+    <div class="district-container">
+
+      <a href="/district/Thiruvananthapuram" class="district-card">
+        <img src="/images/tvm.jpg" alt="Thiruvananthapuram">
+        <div class="card-text">Thiruvananthapuram</div>
+      </a>
+
+      <a href="/district/Kollam" class="district-card">
+        <img src="/images/kollam.jpg" alt="Kollam">
+        <div class="card-text">Kollam</div>
+      </a>
+
+      <a href="/district/Pathanamthitta" class="district-card">
+        <img src="/images/pathanamthita.jpg" alt="Pathanamthitta">
+        <div class="card-text">Pathanamthitta</div>
+      </a>
+
+      <a href="/district/Alappuzha" class="district-card">
+        <img src="/images/alappuzha.jpg" alt="Alappuzha">
+        <div class="card-text">Alappuzha</div>
+      </a>
+
+      <a href="/district/Kottayam" class="district-card">
+        <img src="/images/kottayam.jpg" alt="Kottayam">
+        <div class="card-text">Kottayam</div>
+      </a>
+
+      <a href="/district/Idukki" class="district-card">
+        <img src="/images/idukki.jpg" alt="Idukki">
+        <div class="card-text">Idukki</div>
+      </a>
+
+      <a href="/district/Ernakulam" class="district-card">
+        <img src="/images/ekm.jpg" alt="Ernakulam">
+        <div class="card-text">Ernakulam</div>
+      </a>
+
+      <a href="/district/Palakkad" class="district-card">
+        <img src="/images/pkd.jpg" alt="Palakkad">
+        <div class="card-text">Palakkad</div>
+      </a>
+
+      <a href="/district/Malappuram" class="district-card">
+        <img src="/images/malapuram.jpg" alt="Malappuram">
+        <div class="card-text">Malappuram</div>
+      </a>
+
+      <a href="/district/Kozhikode" class="district-card">
+        <img src="/images/kozhikode.jpg" alt="Kozhikode">
+        <div class="card-text">Kozhikode</div>
+      </a>
+
+      <a href="/district/Wayanad" class="district-card">
+        <img src="/images/wayanad.jpg" alt="Wayanad">
+        <div class="card-text">Wayanad</div>
+      </a>
+
+      <a href="/district/Kannur" class="district-card">
+        <img src="/images/kannur.jpg" alt="Kannur">
+        <div class="card-text">Kannur</div>
+      </a>
+
+      <a href="/district/Kasaragod" class="district-card">
+        <img src="/images/kasargod.jpg" alt="Kasaragod">
+        <div class="card-text">Kasaragod</div>
+      </a>
+
+    </div>
+  </div>
+<iframe 
+  src="/chatbot.html"
+  allow="autoplay; microphone"
+  style="position:fixed;bottom:0;right:0;width:360px;height:420px;border:none;z-index:9999;">
+</iframe>
+<script>
+fetch("/navigation.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav-container").innerHTML = html;
+  });
+</script>
+
+<link rel="stylesheet" href="/css/navigation.css">
+<script src="/js/navigation.js"></script>
+
+<script>
+fetch("/navigation.html")
+  .then(r => r.text())
+  .then(html => document.getElementById("nav-container").innerHTML = html);
+</script>
+
+
+</body>
+</html>

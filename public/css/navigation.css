@@ -1,0 +1,74 @@
+#voice-nav{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:14px 30px;
+  background:hwb(151 26% 65%);
+  color:white;
+  font-family:Arial;
+}
+
+#voice-nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+
+#voice-nav button{
+  margin-left:auto;
+  background:#db9934;
+  border:none;
+  padding:8px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+#voice-nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  background:#56695f;
+  font-family:Arial;
+  position:sticky;
+  top:0;
+  z-index:9998;
+}
+
+/* Horizontal scrolling area */
+.nav-scroll{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  white-space:nowrap;
+  flex:1;
+  scrollbar-width:none; /* Firefox */
+}
+
+/* Hide scrollbar (Chrome / Edge) */
+.nav-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-scroll a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 14px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.15);
+}
+
+.nav-scroll a:hover{
+  background:#ce9846;
+  color:black;
+}
+
+/* Voice button */
+.voice-btn{
+  background:#e8c03a;
+  border:none;
+  padding:8px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kerala Tourism Guide</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  
+
+
+
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  Welcome to Kerala – God’s Own Country
+</div>
+<div id="nav-container"></div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="overlay">
+    <div class="hero-text">
+      <h1>KERALA TOURISM</h1>
+      <p class="subtitle">HERITAGE • NATURE • CULTURE</p>
+
+      <div class="buttons">
+        <a href="/destinations" class="btn primary">Explore Destinations</a>
+        <a href="#" class="btn secondary">Travel Guide</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT SECTION -->
+<section class="content">
+  <div class="left">
+    <h2>PERSONAL & REGIONAL</h2>
+    <a href="#" class="btn primary">Discover Culture</a>
+  </div>
+
+  <div class="right">
+    <p>
+      Kerala Tourism Guide is a socially relevant platform designed to promote
+      responsible tourism by showcasing Kerala’s backwaters, hill stations,
+      beaches, wildlife, and traditional culture.  
+      This website helps tourists explore destinations while supporting
+      eco-friendly and local tourism.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © 2026 Kerala Tourism Guide Platform
+</footer>
+<iframe 
+  src="/chatbot.html"
+  allow="autoplay; microphone"
+  style="position:fixed;bottom:0;right:0;width:360px;height:420px;border:none;z-index:9999;">
+</iframe>
+
+<script>
+fetch("/navigation.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav-container").innerHTML = html;
+  });
+</script>
+
+<link rel="stylesheet" href="/css/navigation.css">
+<script src="/js/navigation.js"></script>
+
+<script>
+fetch("/navigation.html")
+  .then(r => r.text())
+  .then(html => document.getElementById("nav-container").innerHTML = html);
+</script>
+pt>
+
+</body>
+</html>

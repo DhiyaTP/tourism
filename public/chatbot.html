@@ -1,0 +1,204 @@
+<!-- AI Chatbot Widget -->
+<div id="chatbot">
+  <div id="chat-header">
+  🤖 AI Travel Assistant
+  <span id="mute-btn" onclick="toggleVoice()">🔊</span>
+</div>
+
+  <div id="chat-body"></div>
+
+  <div id="chat-controls">
+    <input id="chat-input" placeholder="Ask about Kerala tourism..." />
+    <button onclick="sendText()">Send</button>
+    <button onclick="startVoice()">🎤</button>
+   
+
+  </div>
+</div>
+
+<style>
+#chatbot{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:260px;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  font-family:Arial;
+  z-index:9999;
+}
+#chat-header{
+  background:#0a6b4e;
+  color:white;
+  padding:12px;
+  border-radius:15px 15px 0 0;
+  font-weight:bold;
+}
+#chat-body{
+  height:160px;
+  padding:10px;
+  overflow-y:auto;
+  font-size:14px;
+}
+.msg.user{color:#000;margin-bottom:8px}
+.msg.bot{color:#0a6b4e;margin-bottom:8px}
+#chat-controls{
+  display:flex;
+  gap:5px;
+  padding:10px;
+}
+#chat-controls input{
+  flex:1;
+  padding:6px;
+}
+#chatbot{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  overflow:hidden;
+  transition:all 0.3s ease;
+}
+
+#chatbot:hover{
+  width:280px;
+  height:auto;
+  border-radius:15px;
+}
+#chat-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+#mute-btn{
+  cursor:pointer;
+  font-size:18px;
+}
+
+
+</style>
+
+<script>
+    let voiceEnabled = true;
+
+function toggleVoice(){
+  voiceEnabled = !voiceEnabled;
+
+  // stop current speech immediately
+  speechSynthesis.cancel();
+
+  // change button icon
+  const btn = event.target;
+  btn.textContent = voiceEnabled ? "🔊" : "🔇";
+}
+
+
+/* ✅ ADD THIS FIRST */
+function detectLanguage(text){
+  const malayalamRegex = /[\u0D00-\u0D7F]/;
+  return malayalamRegex.test(text) ? "ml-IN" : "en-IN";
+}
+
+const chatBody = document.getElementById("chat-body");
+
+function addMsg(text,cls){
+  const div = document.createElement("div");
+  div.className = "msg " + cls;
+  div.innerText = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+
+/* ✅ THIS ALREADY EXISTS — JUST MODIFY 2 LINES INSIDE */
+async function sendText(){
+  const input = document.getElementById("chat-input");
+  const text = input.value;
+  if(!text) return;
+  input.value = "";
+  addMsg(text,"user");
+
+  const res = await fetch("/api/chat",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ message:text })
+  });
+  const data = await res.json();
+
+  addMsg(data.reply,"bot");
+  const lang = detectLanguage(data.reply);   // ✅ ADD
+  speak(data.reply, lang);                   // ✅ CHANGE
+}
+
+function startVoice(){
+  const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  rec.lang = "ml-IN"; // Malayalam + English
+  rec.onresult = e => {
+    document.getElementById("chat-input").value = e.results[0][0].transcript;
+    sendText();
+  };
+  rec.start();
+}
+
+
+
+/* ✅ MODIFY speak() TO ACCEPT LANGUAGE */
+function speak(text, lang){
+    if(!voiceEnabled) return; 
+  // Clear any previous speech (Edge needs this)
+  speechSynthesis.cancel();
+
+  const msg = new SpeechSynthesisUtterance(text);
+
+  // Fallback if Malayalam voice is not available
+  const voices = speechSynthesis.getVoices();
+  msg.lang = voices.some(v => v.lang === lang) ? lang : "en-IN";
+
+  msg.rate = 0.95;
+  msg.volume = 1;
+
+  speechSynthesis.speak(msg);
+}
+;
+document.body.addEventListener("click", () => {
+  speechSynthesis.resume();
+});
+function handleNavigation(command){
+  command = command.toLowerCase();
+
+  // HOME
+  if(command.includes("home") || command.includes("ഹോം")){
+    window.location.href = "/";
+    return true;
+  }
+
+  // DESTINATIONS
+  if(command.includes("destination") || command.includes("tourist") || command.includes("ടൂറിസ്റ്റ്")){
+    window.location.href = "/destinations";
+    return true;
+  }
+
+  // DISTRICTS
+  if(command.includes("thiruvananthapuram") || command.includes("trivandrum") || command.includes("തിരുവനന്തപുരം")){
+    window.location.href = "/district/thiruvananthapuram";
+    return true;
+  }
+
+  if(command.includes("kollam") || command.includes("കൊല്ലം")){
+    window.location.href = "/district/kollam";
+    return true;
+  }
+
+  // BACK
+  if(command.includes("back") || command.includes("തിരിച്ച്")){
+    history.back();
+    return true;
+  }
+
+  return false; // not a navigation command
+}
+
+
+
+</script>

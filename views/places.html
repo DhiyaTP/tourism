@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tourist Places – Kerala</title>
+
+<style>
+  
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+header {
+  background: #0a6b4e;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.places-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.place-card {
+  width: 280px;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.place-card:hover {
+  transform: translateY(-5px);
+}
+
+.place-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.place-card .content {
+  padding: 14px;
+}
+
+.place-card h3 {
+  margin: 0 0 8px;
+}
+
+.place-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.place-card a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+</head>
+
+<body>
+  <div id="nav-container"></div>
+
+  
+
+
+<header>
+  <h1>Tourist Destinations</h1>
+  <p>Explore the must-visit places in Kerala</p>
+</header>
+
+<div class="places-container">
+
+  <!-- Kovalam -->
+  <div class="place-card">
+    <a href="/place/kovalam">
+      <img src="/images/kovalam.jpg">
+      <div class="content">
+        <h3>Kovalam Beach</h3>
+        <p>A famous crescent-shaped beach with lighthouse views.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Varkala -->
+  <div class="place-card">
+    <a href="/place/varkala">
+      <img src="/images/varkala.jpg">
+      <div class="content">
+        <h3>Varkala Cliff</h3>
+        <p>The only seaside cliff formation in Kerala.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Ponmudi -->
+  <div class="place-card">
+    <a href="/place/ponmudi">
+      <img src="/images/ponmudi.jpg">
+      <div class="content">
+        <h3>Ponmudi Hills</h3>
+        <p>A misty hill station with winding roads and greenery.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Padmanabhaswamy Temple -->
+  <div class="place-card">
+    <a href="/place/padmanabhaswamy">
+      <img src="/images/padhmanaba.jpg">
+      <div class="content">
+        <h3>Padmanabhaswamy Temple</h3>
+        <p>An iconic Vishnu temple with Dravidian architecture.</p>
+      </div>
+    </a>
+  </div>
+
+  <!-- Zoo -->
+  <div class="place-card">
+    <a href="/place/zoo">
+      <img src="/images/zoo.jpg">
+      <div class="content">
+        <h3>Thiruvananthapuram Zoo</h3>
+        <p>One of the oldest zoos in India, set in a botanical garden.</p>
+      </div>
+    </a>
+  </div>
+
+</div>
+<iframe 
+  src="/chatbot.html"
+  allow="autoplay; microphone"
+  style="position:fixed;bottom:0;right:0;width:360px;height:420px;border:none;z-index:9999;">
+</iframe>
+ <script>
+fetch("/navigation.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav-container").innerHTML = html;
+  });
+</script>
+
+<link rel="stylesheet" href="/css/navigation.css">
+<script src="/js/navigation.js"></script>
+
+<script>
+fetch("/navigation.html")
+  .then(r => r.text())
+  .then(html => document.getElementById("nav-container").innerHTML = html);
+</script>
+
+
+</body>
+</html>
