@@ -1,22 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Kerala Tourism - Login</title>
+<meta charset="UTF-8">
+<title>Kerala Tourism</title>
 <link rel="stylesheet" href="/css/auth.css">
 </head>
+
 <body>
 
-<div class="auth-container">
-<h2>Login</h2>
+<div class="page">
 
-<form action="/login" method="POST">
-<input type="email" name="email" placeholder="Email" required>
-<input type="password" name="password" placeholder="Password" required>
+    <!-- LEFT LOGIN PANEL -->
+    <div class="login-panel">
 
-<button type="submit">Login</button>
+        <div class="login-box">
+            <h2>Login to Your Account</h2>
 
-<p>New user? <a href="/signup.html">Create account</a></p>
-</form>
+            <form action="/login" method="POST">
+
+                <div class="input-group">
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+
+                <div class="remember">
+                    <input type="checkbox"> Remember me
+                </div>
+
+                <button type="submit">LOGIN</button>
+
+                <a class="signup" href="/signup.html">Create Account</a>
+
+            </form>
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE CONTENT -->
+    <div class="hero-text">
+        <h1>Explore Kerala</h1>
+        <p>The goal of life is living in agreement with nature.</p>
+    </div>
+
 </div>
 
 </body>

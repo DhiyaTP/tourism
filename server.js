@@ -82,7 +82,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/keralaTourismDB")
 .catch(err=>console.log(err));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+
 /* ===============================
    SESSION LOGIN
 ================================ */
@@ -106,10 +107,61 @@ app.use((req,res,next)=>{
 /* ===============================
    HOME (STATIC)
 ================================ */
+// LOGIN PROTECTION MIDDLEWARE
+// ROOT ROUTE
 app.get("/", (req, res) => {
+  if (req.session.user) {
+    res.redirect("/home");
+  } else {
+    res.redirect("/login.html");
+  }
+});
+// GLOBAL AUTH PROTECTION
+app.use((req, res, next) => {
+
+  // allow static files
+  if (
+    req.path.startsWith("/css/") ||
+    req.path.startsWith("/js/") ||
+    req.path.startsWith("/images/") ||
+    req.path.match(/\.(css|js|png|jpg|jpeg|gif|ico)$/)
+  ) {
+    return next();
+  }
+
+  // public routes (no login required)
+  const publicRoutes = [
+    "/login.html",
+    "/signup.html",
+    "/login",
+    "/signup",
+    "/"
+  ];
+
+  if (publicRoutes.includes(req.path)) {
+    return next();
+  }
+
+  // everything else requires login
+  if (!req.session.user) {
+    return res.redirect("/login.html");
+  }
+
+  next();
+});
+// HOME PAGE (after login)
+app.get("/home", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login.html");
+  }
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
+// BLOCK DIRECT ACCESS TO index.html
+app.get("/index.html", (req, res) => {
+  return res.redirect("/");
+});
 
+  
 /* ===============================
    DESTINATIONS (STATIC)
 ================================ */
@@ -463,7 +515,7 @@ app.post("/login", async (req, res) => {
 
   req.session.user = user;
 
-  res.redirect("/");
+ res.redirect("/home");
 });
 
 /* ===============================
@@ -471,7 +523,7 @@ app.post("/login", async (req, res) => {
 ================================ */
 app.get("/logout", (req,res)=>{
   req.session.destroy(()=>{
-    res.redirect("/");
+    res.redirect("/login.html");
   });
 });
 app.post("/api/chat", async (req, res) => {
@@ -565,6 +617,7 @@ app.get("/trip-planner", (req,res)=>{
   }
   res.sendFile(path.join(__dirname,"views","trip-planner.html"));
 });
+
 /* ===============================
    START SERVER
 ================================ */
