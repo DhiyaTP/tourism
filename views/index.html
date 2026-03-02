@@ -16,9 +16,25 @@
 
 <!-- TOP BAR -->
 <div class="top-bar">
-  <span class="welcome-text">
-    Welcome to Kerala – God’s Own Country
-  </span>
+
+    <div class="top-text">
+        Welcome to Kerala – God’s Own Country
+    </div>
+
+    <!-- 3 DOT PROFILE MENU -->
+    <div class="profile-menu">
+
+        <div class="profile-icon" onclick="toggleMenu()">⋮</div>
+
+        <div id="dropdown" class="dropdown">
+            <p class="username">Welcome Traveler</p>
+            <hr>
+            <a href="#">My Profile</a>
+            <a href="/logout" class="logout">Logout</a>
+        </div>
+
+    </div>
+
 </div>
 <div id="nav-container"></div>
 
@@ -98,5 +114,18 @@ fetch("/chatbot.html")
 <a href="/trip-planner" id="trip-side-btn">
   🧭<br>Trip<br>Planner
 </a>
+<script>
+function toggleMenu(){
+    const menu = document.getElementById("dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+window.onclick = function(e){
+    if(!e.target.matches('.profile-icon')){
+        const menu = document.getElementById("dropdown");
+        if(menu) menu.style.display = "none";
+    }
+}
+</script>
 </body>
 </html>

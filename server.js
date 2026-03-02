@@ -467,17 +467,21 @@ ${pathanamthittaPlaces.map(p=>`
 app.post("/signup", async (req, res) => {
   try {
 
-    const { name, email, password } = req.body;
+    let { name, email, password } = req.body;
 
-    // check existing
+    // FIX: normalize email
+    email = email.trim().toLowerCase();
+
+    // check existing user
     const existing = await User.findOne({ email });
     if(existing){
       return res.send("Email already registered");
     }
 
-    // encrypt password
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // create user
     const user = new User({
       name,
       email,
@@ -499,7 +503,10 @@ app.post("/signup", async (req, res) => {
 ================================ */
 app.post("/login", async (req, res) => {
 
-  const { email, password } = req.body;
+  let { email, password } = req.body;
+
+  // FIX: normalize email
+  email = email.trim().toLowerCase();
 
   const user = await User.findOne({ email });
 
@@ -515,9 +522,8 @@ app.post("/login", async (req, res) => {
 
   req.session.user = user;
 
- res.redirect("/home");
+  res.redirect("/home");
 });
-
 /* ===============================
    LOGOUT
 ================================ */
