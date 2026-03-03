@@ -92,7 +92,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/keralaTourismDB")
 .catch(err=>console.log(err));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+
 /* ===============================
    SESSION LOGIN
 ================================ */
@@ -114,10 +115,61 @@ app.use((req,res,next)=>{
 /* ===============================
    HOME (STATIC)
 ================================ */
+// LOGIN PROTECTION MIDDLEWARE
+// ROOT ROUTE
 app.get("/", (req, res) => {
+  if (req.session.user) {
+    res.redirect("/home");
+  } else {
+    res.redirect("/login.html");
+  }
+});
+// GLOBAL AUTH PROTECTION
+app.use((req, res, next) => {
+
+  // allow static files
+  if (
+    req.path.startsWith("/css/") ||
+    req.path.startsWith("/js/") ||
+    req.path.startsWith("/images/") ||
+    req.path.match(/\.(css|js|png|jpg|jpeg|gif|ico)$/)
+  ) {
+    return next();
+  }
+
+  // public routes (no login required)
+  const publicRoutes = [
+    "/login.html",
+    "/signup.html",
+    "/login",
+    "/signup",
+    "/"
+  ];
+
+  if (publicRoutes.includes(req.path)) {
+    return next();
+  }
+
+  // everything else requires login
+  if (!req.session.user) {
+    return res.redirect("/login.html");
+  }
+
+  next();
+});
+// HOME PAGE (after login)
+app.get("/home", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login.html");
+  }
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
+// BLOCK DIRECT ACCESS TO index.html
+app.get("/index.html", (req, res) => {
+  return res.redirect("/");
+});
 
+  
 /* ===============================
    DESTINATIONS (STATIC)
 ================================ */
@@ -479,17 +531,21 @@ ${pathanamthittaPlaces.map(p=>`
 app.post("/signup", async (req, res) => {
   try {
 
-    const { name, email, password } = req.body;
+    let { name, email, password } = req.body;
 
-    // check existing
+    // FIX: normalize email
+    email = email.trim().toLowerCase();
+
+    // check existing user
     const existing = await User.findOne({ email });
     if(existing){
       return res.send("Email already registered");
     }
 
-    // encrypt password
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // create user
     const user = new User({
       name,
       email,
@@ -511,7 +567,10 @@ app.post("/signup", async (req, res) => {
 ================================ */
 app.post("/login", async (req, res) => {
 
-  const { email, password } = req.body;
+  let { email, password } = req.body;
+
+  // FIX: normalize email
+  email = email.trim().toLowerCase();
 
   const user = await User.findOne({ email });
 
@@ -527,12 +586,19 @@ app.post("/login", async (req, res) => {
 
   req.session.user = user;
 
-  res.redirect("/");
+  res.redirect("/home");
 });
-
 /* ===============================
    CHATBOT API
 ================================ */
+<<<<<<< HEAD
+=======
+app.get("/logout", (req,res)=>{
+  req.session.destroy(()=>{
+    res.redirect("/login.html");
+  });
+});
+>>>>>>> aa489df4e5e754e3a30c1e293f4e12a0fe7d295a
 app.post("/api/chat", async (req, res) => {
   try {
 
@@ -617,6 +683,7 @@ app.get("/trip-planner", (req,res)=>{
   res.sendFile(path.join(__dirname,"views","trip-planner.html"));
 });
 
+<<<<<<< HEAD
 
 
 app.get("/add-nilambur", async (req, res) => {
@@ -677,6 +744,8 @@ app.get("/api/places", async (req, res) => {
 });
 
 
+=======
+>>>>>>> aa489df4e5e754e3a30c1e293f4e12a0fe7d295a
 /* ===============================
    START SERVER
 ================================ */

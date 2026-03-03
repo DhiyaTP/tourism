@@ -1,23 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Kerala Tourism - Sign Up</title>
+<meta charset="UTF-8">
+<title>Create Account - Kerala Tourism</title>
 <link rel="stylesheet" href="/css/auth.css">
 </head>
+
 <body>
 
-<div class="auth-container">
-<h2>Create Account</h2>
+<div class="page">
 
-<form action="/signup" method="POST">
-<input type="text" name="name" placeholder="Full Name" required>
-<input type="email" name="email" placeholder="Email" required>
-<input type="password" name="password" placeholder="Password" required>
+    <div class="login-panel">
 
-<button type="submit">Sign Up</button>
+        <div class="login-box">
+            <h2>Create Your Account</h2>
 
-<p>Already have account? <a href="/login.html">Login</a></p>
-</form>
+            <form action="/signup" method="POST">
+
+                <div class="input-group">
+                    <input type="text" name="name" required>
+                    <label>Full Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+
+                <button type="submit">SIGN UP</button>
+
+                <a class="signup" href="/login.html">Already have an account? Login</a>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="hero-text">
+        <h1>Start Your Journey</h1>
+        <p>Create an account and plan your dream Kerala trip.</p>
+    </div>
+
 </div>
 
 </body>

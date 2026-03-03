@@ -7,12 +7,28 @@
 
 /* TOP BAR */
 .top-bar {
-  background: #c9a441;
+  background: #506f4c;
   color: white;
   text-align: center;
   padding: 10px;
   font-size: 14px;
 }
+.top-login{
+background:#0a6b4e;
+color:white;
+padding:6px 14px;
+border-radius:18px;
+text-decoration:none;
+font-weight:600;
+font-size:13px;
+transition:0.3s;
+}
+
+.top-login:hover{
+  background:#ff9800;
+  color:white;
+}
+
 
 /* HERO SECTION */
 .hero {
@@ -349,4 +365,67 @@ body {
 #trip-side-btn:hover{
   transform:translateX(5px);
   background:#0f8f68;
+}
+/* TOP BAR */
+.top-bar{
+    background:#2d5733;
+    color:white;
+    padding:10px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:500;
+}
+
+/* 3 DOT BUTTON */
+.profile-menu{
+    position:relative;
+}
+
+.profile-icon{
+    font-size:22px;
+    cursor:pointer;
+    padding:6px 12px;
+    border-radius:8px;
+    background:rgba(255,255,255,0.2);
+}
+
+.profile-icon:hover{
+    background:rgba(255,255,255,0.35);
+}
+
+/* DROPDOWN */
+.dropdown{
+    position:absolute;
+    right:0;
+    top:40px;
+    width:190px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    display:none;
+    z-index:9999;
+    overflow:hidden;
+}
+
+.dropdown p{
+    padding:12px;
+    font-weight:600;
+    color:#333;
+}
+
+.dropdown a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:#333;
+}
+
+.dropdown a:hover{
+    background:#f3f3f3;
+}
+
+.logout{
+    color:#e74c3c;
+    font-weight:600;
 }
