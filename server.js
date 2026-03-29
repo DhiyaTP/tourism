@@ -173,15 +173,13 @@ app.get("/index.html", (req, res) => {
 /* ===============================
    DESTINATIONS (STATIC)
 ================================ */
-app.get("/destinations", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "destinations.html"));
-});
-app.get("/trip-planner", (req,res)=>{
-  res.sendFile(path.join(__dirname,"views","trip-planner.html"));
-});
 /* ===============================
    SEND ALL DISTRICTS TO FRONTEND
 ================================ */
+app.get("/destinations", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "destinations.html"));
+});
+
 app.get("/api/districts", (req, res) => {
   res.json(Object.keys(normalizedPlacesByDistrict));
 });
@@ -591,14 +589,11 @@ app.post("/login", async (req, res) => {
 /* ===============================
    CHATBOT API
 ================================ */
-<<<<<<< HEAD
-=======
 app.get("/logout", (req,res)=>{
   req.session.destroy(()=>{
     res.redirect("/login.html");
   });
 });
->>>>>>> aa489df4e5e754e3a30c1e293f4e12a0fe7d295a
 app.post("/api/chat", async (req, res) => {
   try {
 
@@ -682,10 +677,6 @@ app.get("/trip-planner", (req,res)=>{
   }
   res.sendFile(path.join(__dirname,"views","trip-planner.html"));
 });
-
-<<<<<<< HEAD
-
-
 app.get("/add-nilambur", async (req, res) => {
 
   const place = new Place({
@@ -701,10 +692,13 @@ app.get("/add-nilambur", async (req, res) => {
     ]
   });
 
+  await place.save();
 
-  /* ===============================
-   ADD FAVORITE PLACE
-================================ */
+  res.send("Nilambur Teak Museum added");
+});
+
+
+// ADD FAVORITE PLACE (separate route)
 app.post("/api/favorite", async (req, res) => {
 
   if (!req.session.user) {
@@ -729,26 +723,13 @@ app.post("/api/favorite", async (req, res) => {
   }
 });
 
-  await place.save();
 
-  res.send("Nilambur Teak Museum added");
-});
 
-/* ===============================
-   GET ALL PLACES FROM DATABASE
-================================ */
 
 app.get("/api/places", async (req, res) => {
   const places = await Place.find();
   res.json(places);
 });
-
-
-=======
->>>>>>> aa489df4e5e754e3a30c1e293f4e12a0fe7d295a
-/* ===============================
-   START SERVER
-================================ */
 
 app.get("/import-all-places", async (req, res) => {
   try {
@@ -778,8 +759,6 @@ app.get("/import-all-places", async (req, res) => {
     res.send("Import error");
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log("✅ Server running at http://localhost:3000");
