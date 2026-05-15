@@ -6,14 +6,18 @@
 
 <link rel="stylesheet" href="/css/navigation.css">
 <link rel="stylesheet" href="/css/tripplanner.css">
-
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <div id="nav-container"></div>
-
+<button onclick="window.history.back()" 
+  style="position:fixed;top:120px;left:20px;z-index:999;
+  background:#0a6b4e;color:white;border:none;padding:10px 18px;
+  border-radius:10px;cursor:pointer;font-size:14px;font-weight:600;">
+  ← Back
+</button>
 <!-- HEADER -->
 <div class="planner-hero">
   <div class="planner-overlay">
@@ -30,8 +34,8 @@
     <div class="field">
       <label>District</label>
       <select id="district">
-  <option>Loading districts...</option>
-</select>
+        <option>Loading districts...</option>
+      </select>
     </div>
 
     <div class="field">
@@ -40,18 +44,22 @@
     </div>
 
     <div class="field">
+      <label>Start Date</label>
+      <input id="startDate" type="date" required>
+    </div>
+
+    <div class="field">
       <label>Interest</label>
       <select id="interest">
-  <option>Nature</option>
-  <option>Beaches</option>
-  <option>Hill Stations</option>
-  <option>Wildlife</option>
-  <option>Culture & Temples</option>
-  <option>Adventure</option>
-  <option>Photography</option>
-  <option>Family Trip</option>
-  
-</select>
+        <option>Nature</option>
+        <option>Beaches</option>
+        <option>Hill Stations</option>
+        <option>Wildlife</option>
+        <option>Culture & Temples</option>
+        <option>Adventure</option>
+        <option>Photography</option>
+        <option>Family Trip</option>
+      </select>
     </div>
 
     <div class="field button-field">

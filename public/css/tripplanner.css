@@ -1,113 +1,297 @@
+/* ================= GLOBAL ================= */
+
 body{
   margin:0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background:#f3f7f6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background:#f4f7f6;
 }
 
-/* HERO HEADER */
-.planner-hero{
-  height:260px;
-  background:url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944") center/cover no-repeat;
+/* ================= HERO SECTION ================= */
+
+.planner-hero {
+  height: 65vh;
+  background: url("/images/kerala-bg.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.planner-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+}
+
+.planner-overlay {
   position:relative;
-}
-
-.planner-overlay{
-  background:rgba(0,0,0,0.45);
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  color:white;
+  z-index:2;
   text-align:center;
-}
-
-.planner-overlay h1{
-  font-size:42px;
-  margin:0;
-}
-
-.planner-overlay p{
-  font-size:18px;
-}
-
-/* CARD */
-.planner-card{
-  width:80%;
-  margin:-60px auto 20px auto;
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* FORM */
-.form-row{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  align-items:end;
-  justify-content:center;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-}
-
-.field label{
-  font-weight:600;
-  margin-bottom:6px;
-}
-
-.field select,
-.field input{
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  min-width:180px;
-  font-size:15px;
-}
-
-.button-field{
-  justify-content:end;
-}
-
-button#generate{
-  background:#0a6b4e;
   color:white;
-  border:none;
-  padding:12px 22px;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
+  max-width:800px;
+  padding:20px;
+}
+
+.planner-overlay h1 {
+  font-size:48px;
+  margin-bottom:12px;
+  letter-spacing:1px;
+}
+
+.planner-overlay p {
+  font-size:18px;
+  opacity:0.9;
+}
+
+/* ================= PLANNER CARD ================= */
+
+.planner-card {
+  width: 92%;
+  max-width: 1150px;
+  margin: -70px auto 50px auto;
+  background: white;
+  padding: 35px 45px;
+  border-radius: 22px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  position: relative;
+  z-index:3;
+}
+
+/* ================= FORM LAYOUT ================= */
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: flex-end;
+}
+
+.field {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size:14px;
+  letter-spacing:0.5px;
+}
+
+.field input,
+.field select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  transition: 0.3s;
+  background:#fafafa;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: #0a6b4e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(10,107,78,0.15);
+  background:white;
+}
+
+/* ================= BUTTON ================= */
+
+.button-field {
+  flex: 0;
+}
+
+#generate-btn {
+  background: linear-gradient(135deg,#0a6b4e,#0e8a65);
+  color: white;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+
+#generate-btn:hover {
+  transform: translateY(-3px);
+  box-shadow:0 12px 30px rgba(0,0,0,0.25);
+}
+
+/* ================= RESULT SECTION ================= */
+
+#itinerary-result {
+  width: 92%;
+  max-width: 1150px;
+  margin: 10px auto 80px auto;
+}
+
+/* ================= DAY CARD ================= */
+
+.day-card {
+  background: white;
+  padding: 30px 35px;
+  border-radius: 20px;
+  margin-bottom: 35px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  border-left: 6px solid #0a6b4e;
+}
+
+.day-card:hover {
+  transform: translateY(-5px);
+}
+
+.day-card h2{
+  margin-top:0;
+  color:#0a6b4e;
+  font-size:22px;
+}
+
+/* ================= PLACE BLOCK ================= */
+
+.place-block{
+  margin-top:25px;
+  padding:20px;
+  border-radius:16px;
+  background:#f9fbfa;
+  border:1px solid #e6e6e6;
   transition:0.3s;
 }
 
-button#generate:hover{
-  background:#084f3a;
-}
-
-/* RESULT */
-#result{
-  margin-top:30px;
-}
-
-/* DAY CARD */
-.day-card{
+.place-block:hover{
   background:white;
-  padding:20px;
-  border-radius:15px;
-  margin:20px auto;
-  width:60%;
-  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
 }
 
-.day-card h3{
+.place-block h3{
+  margin:0 0 10px 0;
+  color:#333;
+  font-size:18px;
+}
+
+.place-block p{
+  font-size:14px;
+  color:#666;
+  margin-bottom:10px;
+}
+
+/* ================= INFO SECTION ================= */
+
+.info-section{
+  margin-top:12px;
+}
+
+.info-section strong{
+  display:block;
+  margin-bottom:6px;
   color:#0a6b4e;
+  font-size:14px;
 }
 
-.day-card p{
-  font-size:16px;
-  margin:10px 0;
+.info-section ul{
+  padding-left:18px;
+  margin:0;
+}
+
+.info-section li{
+  font-size:14px;
+  margin-bottom:5px;
+  color:#444;
+}
+
+/* ================= BUTTON ROW ================= */
+
+.button-row{
+  margin-top:15px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.button-row button{
+  background:#0a6b4e;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:13px;
+  transition:0.3s;
+}
+
+.button-row button:hover{
+  background:#084d39;
+}
+
+/* ================= REACH BOX ================= */
+
+.reach-box{
+  margin-top:12px;
+  padding:14px;
+  background:#eaf5f1;
+  border-radius:12px;
+  font-size:14px;
+  color:#444;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+  .planner-overlay h1{
+    font-size:34px;
+  }
+
+  .planner-card{
+    margin-top:-50px;
+    padding:25px;
+  }
+
+  .form-row{
+    flex-direction:column;
+  }
+
+  .button-field{
+    width:100%;
+  }
+
+  #generate-btn{
+    width:100%;
+  }
+
+}
+/* ================= MAP ICON IN LISTS ================= */
+
+.icon-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.icon-list li {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.map-icon-link {
+  text-decoration: none;
+  font-size: 14px;
+  opacity: 0.75;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.map-icon-link:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  display: inline-block;
 }

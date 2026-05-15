@@ -2,137 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kerala Tourism Guide</title>
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/navigation.css">
 </head>
-<!-- AI CHATBOT -->
-
 
 <body>
-  
 
-
-
-
-<!-- TOP BAR -->
-<div class="top-bar">
-
+  <!-- TOP BAR -->
+  <div class="top-bar">
     <div class="top-text">
-        Welcome to Kerala – God’s Own Country
+      Welcome to Kerala – God's Own Country
     </div>
 
     <!-- 3 DOT PROFILE MENU -->
     <div class="profile-menu">
-
-        <div class="profile-icon" onclick="toggleMenu()">⋮</div>
-
-        <div id="dropdown" class="dropdown">
-            <p class="username">Welcome Traveler</p>
-            <hr>
-            <a href="#">My Profile</a>
-            <a href="/logout" class="logout">Logout</a>
-        </div>
-
-    </div>
-
-</div>
-<div id="nav-container"></div>
-
-<!-- HERO SECTION -->
-<section class="hero">
-  <div class="overlay">
-    <div class="hero-text">
-      <h1>KERALA TOURISM</h1>
-      <p class="subtitle">HERITAGE • NATURE • CULTURE</p>
-
-      <div class="buttons">
-        <a href="/destinations" class="btn primary">Explore Destinations</a>
-        <a href="#" class="btn secondary">Travel Guide</a>
+      <div class="profile-icon" onclick="toggleMenu()">⋮</div>
+      <div id="dropdown" class="dropdown">
+        <p class="username">Welcome Traveler</p>
+        <hr>
+        <a href="#">My Profile</a>
+        <a href="/logout" class="logout">Logout</a>
       </div>
     </div>
   </div>
-</section>
 
-<!-- CONTENT SECTION -->
-<section class="content">
-  <div class="left">
-    <h2>PERSONAL & REGIONAL</h2>
-    <a href="#" class="btn primary">Discover Culture</a>
-  </div>
+  <!-- NAVIGATION -->
+  <div id="nav-container"></div>
 
-  <div class="right">
-    <p>
-      Kerala Tourism Guide is a socially relevant platform designed to promote
-      responsible tourism by showcasing Kerala’s backwaters, hill stations,
-      beaches, wildlife, and traditional culture.  
-      This website helps tourists explore destinations while supporting
-      eco-friendly and local tourism.
-    </p>
-  </div>
-</section>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="overlay">
+      <div class="hero-text">
+        <div class="hero-search">
+          <input
+            id="placeSearch"
+            type="text"
+            placeholder="Search any place in Kerala..."
+            onkeyup="if(event.key==='Enter'){ searchPlace(); }"
+          >
+          <button onclick="searchPlace()">🔍</button>
+        </div>
+        <h1>KERALA TOURISM</h1>
+        <p class="subtitle">HERITAGE • NATURE • CULTURE</p>
+        <div class="buttons">
+          <a href="/destinations" class="btn primary">Explore Destinations</a>
+          <a href="/trip-planner" class="btn secondary">Travel Guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  © 2026 Kerala Tourism Guide Platform
-</footer>
+  <!-- CONTENT SECTION -->
+  <section class="content">
+    <div class="left">
+      <h2>PERSONAL & REGIONAL</h2>
+      <a href="#" class="btn primary">Discover Culture</a>
+    </div>
+    <div class="right">
+      <p>
+        Kerala Tourism Guide is a socially relevant platform designed to promote
+        responsible tourism by showcasing Kerala's backwaters, hill stations,
+        beaches, wildlife, and traditional culture.
+        This website helps tourists explore destinations while supporting
+        eco-friendly and local tourism.
+      </p>
+    </div>
+  </section>
 
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2026 Kerala Tourism Guide Platform
+  </footer>
 
-<script>
-fetch("/navigation.html")
-  .then(res => res.text())
-  .then(html => {
-    document.getElementById("nav-container").innerHTML = html;
-  });
-</script>
+  <!-- CHATBOT CONTAINER -->
+  <div id="chatbot-container"></div>
 
-<link rel="stylesheet" href="/css/navigation.css">
-<script src="/js/navigation.js"></script>
+  <script src="/js/navigation.js"></script>
 
-<script>
-fetch("/navigation.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("nav-container").innerHTML = html);
-</script>
+  <script>
+    // Load navigation
+    fetch("/navigation.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("nav-container").innerHTML = html;
+      })
+      .catch(err => console.error("Failed to load navigation:", err));
 
+    // Load chatbot
+    fetch("/chatbot.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("chatbot-container").innerHTML = html;
+        const script = document.createElement("script");
+        script.src = "/js/chatbot.js";
+        document.body.appendChild(script);
+      })
+      .catch(err => console.error("Failed to load chatbot:", err));
 
-<!-- CHATBOT CONTAINER (REQUIRED) -->
-<div id="chatbot-container"></div>
-
-<script>
-fetch("/chatbot.html")
-.then(res => res.text())
-.then(html => {
-  document.getElementById("chatbot-container").innerHTML = html;
-
-  const script = document.createElement("script");
-  script.src = "/js/chatbot.js";
-  document.body.appendChild(script);
-});
-</script>
-
-<!-- LEFT SIDE TRIP PLANNER BUTTON -->
-<a href="/trip-planner" id="trip-side-btn">
-  🧭<br>Trip<br>Planner
-</a>
-<<<<<<< HEAD
-
-<script src="/js/navigation.js"></script>
-<script src="/js/script.js"></script>
-
-=======
-<script>
-function toggleMenu(){
-    const menu = document.getElementById("dropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-window.onclick = function(e){
-    if(!e.target.matches('.profile-icon')){
-        const menu = document.getElementById("dropdown");
-        if(menu) menu.style.display = "none";
+    // Profile dropdown toggle
+    function toggleMenu() {
+      const menu = document.getElementById("dropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
     }
-}
-</script>
->>>>>>> aa489df4e5e754e3a30c1e293f4e12a0fe7d295a
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (e) {
+      const menu = document.getElementById("dropdown");
+      const icon = document.querySelector(".profile-icon");
+      if (menu && icon && !icon.contains(e.target) && !menu.contains(e.target)) {
+        menu.style.display = "none";
+      }
+    });
+
+    // Place search
+    async function searchPlace() {
+      const query = document.getElementById("placeSearch").value.trim();
+
+      if (!query) {
+        alert("Please enter a place name");
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/search-place?q=" + encodeURIComponent(query));
+
+        if (!res.ok) {
+          throw new Error("Server error: " + res.status);
+        }
+
+        const data = await res.json();
+
+        // CASE 1: Found in database
+        if (data.fromDB && data.place && data.place.slug) {
+          window.location = "/place/" + encodeURIComponent(data.place.slug);
+          return;
+        }
+
+        // CASE 2: From OpenStreetMap
+        if (!Array.isArray(data) || data.length === 0) {
+          alert("Place not found. Please try a different search term.");
+          return;
+        }
+
+        const slug = query.toLowerCase().replace(/\s+/g, "-");
+        window.location = "/place/" + encodeURIComponent(slug);
+
+      } catch (err) {
+        console.error("Search error:", err);
+        alert("Something went wrong. Please try again.");
+      }
+    }
+  </script>
+
 </body>
 </html>
